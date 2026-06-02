@@ -20,11 +20,12 @@ on:
 jobs:
   test-triggers:
     runs-on: ubuntu-latest
-
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
       - name: Checkout code
         uses: actions/checkout@v4.2.2
-        
+
       - name: Show trigger info
         run: |
           echo "Event name: ${{ github.event_name }}"
@@ -32,7 +33,7 @@ jobs:
           if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
             echo "Custom message: ${{ github.event.inputs.message }}"
           fi
-          
+
       - name: Run hello script
         run: |
           chmod +x ./hello.sh
